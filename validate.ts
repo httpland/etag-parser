@@ -1,3 +1,6 @@
+// Copyright 2023-latest the httpland authors. All rights reserved. MIT license.
+// This module is browser compatible.
+
 /**
  * @see https://www.rfc-editor.org/rfc/rfc9110#field.etag
  */
