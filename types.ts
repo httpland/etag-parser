@@ -10,8 +10,11 @@ export interface ETag {
   readonly weak: boolean;
 }
 
+/** Representation of [`<entity-tag>`](https://www.rfc-editor.org/rfc/rfc9110#section-8.8.3-2) */
 export type ETagFormat = OpaqueTagFormat | WeakETagFormat;
 
+/** Representation of weak ETag. */
 export type WeakETagFormat = `W/${OpaqueTagFormat}`;
 
+/** Representation of [`<opaque-tag>`](https://www.rfc-editor.org/rfc/rfc9110#section-8.8.3-2). */
 export type OpaqueTagFormat = `"${string}"`;

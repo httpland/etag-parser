@@ -8,6 +8,7 @@ export function quoted(input: string): string {
   return `"${input}"`;
 }
 
+/** Return weak prefixed string. */
 export function weakPrefix<T extends string>(input: T): `W/${T}`;
 export function weakPrefix(input: string): `W/${string}`;
 export function weakPrefix(input: string): `W/${string}` {
