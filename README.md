@@ -58,7 +58,7 @@ Throws `TypeError` if [ETag](#etag) contains invalid value.
 import { stringify } from "https://deno.land/x/etag_parser@$VERSION/mod.ts";
 import { assertThrows } from "https://deno.land/std/testing/asserts.ts";
 
-assertThrows(() => stringify({ tag: "", weak: true }));
+assertThrows(() => stringify({ tag: "aあ亜", weak: true }));
 ```
 
 ## ETag
