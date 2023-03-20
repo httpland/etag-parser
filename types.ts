@@ -6,7 +6,7 @@ export interface ETag {
   /** Representation of [`<etagc>`](https://www.rfc-editor.org/rfc/rfc9110.html#section-8.8.3-2). */
   readonly tag: string;
 
-  /** Whether this is weak etag or not. */
+  /** Whether this is weak validator or not. */
   readonly weak: boolean;
 }
 

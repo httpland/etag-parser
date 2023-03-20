@@ -38,15 +38,6 @@ import { assertThrows } from "https://deno.land/std/testing/asserts.ts";
 assertThrows(() => parse("<invalid>"));
 ```
 
-## ETag
-
-ETag is a structured object for `ETag` header.
-
-| Name | Type      | Description                                                                                 |
-| ---- | --------- | ------------------------------------------------------------------------------------------- |
-| tag  | `string`  | Representation of [`<etagc>`](https://www.rfc-editor.org/rfc/rfc9110.html#section-8.8.3-2). |
-| weak | `boolean` | Whether this is weak validator or not.                                                      |
-
 ## Serialization
 
 Serialize [ETag](#etag) into string.
@@ -69,6 +60,15 @@ import { assertThrows } from "https://deno.land/std/testing/asserts.ts";
 
 assertThrows(() => stringify({ tag: "", weak: true }));
 ```
+
+## ETag
+
+ETag is a structured object for `ETag` header.
+
+| Name | Type      | Description                                                                                 |
+| ---- | --------- | ------------------------------------------------------------------------------------------- |
+| tag  | `string`  | Representation of [`<etagc>`](https://www.rfc-editor.org/rfc/rfc9110.html#section-8.8.3-2). |
+| weak | `boolean` | Whether this is weak validator or not.                                                      |
 
 ## API
 
