@@ -12,7 +12,7 @@
 HTTP ETag header field parser.
 
 Compliant with
-[RFC 9110, 8.8.3. ETag](https://www.rfc-editor.org/rfc/rfc9110#section-8.8.3)
+[RFC 9110, 8.8.3. ETag](https://www.rfc-editor.org/rfc/rfc9110#section-8.8.3).
 
 ## Deserialization
 

@@ -4,7 +4,7 @@
 /**
  * @see https://www.rfc-editor.org/rfc/rfc9110#field.etag
  */
-const ReEtagc = /[\x21\x23-\x7E\x80-\xFF]/;
+const ReEtagc = /^[\x21\x23-\x7E\x80-\xFF]*$/;
 
 /** Whether the input is [`<etagc>`](https://www.rfc-editor.org/rfc/rfc9110#field.etag) format or not.
  *

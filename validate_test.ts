@@ -11,6 +11,7 @@ describe("isEtagcFormat", () => {
       "!",
       "'",
       "abc",
+      "",
     ];
 
     table.forEach((etag) => {
@@ -20,7 +21,6 @@ describe("isEtagcFormat", () => {
 
   it("should return false", () => {
     const table: string[] = [
-      "",
       " ",
       `"`,
       "あ",
