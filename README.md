@@ -12,7 +12,7 @@
 HTTP ETag header field parser.
 
 Compliant with
-[RFC 9110, 8.8.3. ETag](https://www.rfc-editor.org/rfc/rfc9110#section-8.8.3)
+[RFC 9110, 8.8.3. ETag](https://www.rfc-editor.org/rfc/rfc9110#section-8.8.3).
 
 ## Deserialization
 
@@ -38,15 +38,6 @@ import { assertThrows } from "https://deno.land/std/testing/asserts.ts";
 assertThrows(() => parse("<invalid>"));
 ```
 
-## ETag
-
-ETag is a structured object for `ETag` header.
-
-| Name | Type      | Description                                                                                 |
-| ---- | --------- | ------------------------------------------------------------------------------------------- |
-| tag  | `string`  | Representation of [`<etagc>`](https://www.rfc-editor.org/rfc/rfc9110.html#section-8.8.3-2). |
-| weak | `boolean` | Whether this is weak validator or not.                                                      |
-
 ## Serialization
 
 Serialize [ETag](#etag) into string.
@@ -67,8 +58,17 @@ Throws `TypeError` if [ETag](#etag) contains invalid value.
 import { stringify } from "https://deno.land/x/etag_parser@$VERSION/mod.ts";
 import { assertThrows } from "https://deno.land/std/testing/asserts.ts";
 
-assertThrows(() => stringify({ tag: "", weak: true }));
+assertThrows(() => stringify({ tag: "aあ亜", weak: true }));
 ```
+
+## ETag
+
+ETag is a structured object for `ETag` header.
+
+| Name | Type      | Description                                                                                 |
+| ---- | --------- | ------------------------------------------------------------------------------------------- |
+| tag  | `string`  | Representation of [`<etagc>`](https://www.rfc-editor.org/rfc/rfc9110.html#section-8.8.3-2). |
+| weak | `boolean` | Whether this is weak validator or not.                                                      |
 
 ## API
 
