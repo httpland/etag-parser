@@ -1,3 +1,10 @@
+# [1.0.0-beta.2](https://github.com/httpland/etag-parser/compare/1.0.0-beta.1...1.0.0-beta.2) (2023-03-20)
+
+
+### Bug Fixes
+
+* **validate:** fix to etagc regex pattern ([81dc734](https://github.com/httpland/etag-parser/commit/81dc7342004ccef53e6b29946b890cb5a006f232))
+
 # 1.0.0-beta.1 (2023-03-20)
 
 
