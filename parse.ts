@@ -16,16 +16,16 @@ const ReETag = /^(?<weak>W\/)?"(?<etagc>[\x21\x23-\x7E\x80-\xFF]*)"$/;
  *
  * @example
  * ```ts
- * import { parse } from "https://deno.land/x/etag_parser@$VERSION/mod.ts";
+ * import { parseETag } from "https://deno.land/x/etag_parser@$VERSION/mod.ts";
  * import { assertEquals } from "https://deno.land/std/testing/asserts.ts";
  *
- * assertEquals(parse(`W/"123456789"`), { tag: "123456789", weak: true });
- * assertEquals(parse(`"123456789"`), { tag: "123456789", weak: false });
+ * assertEquals(parseETag(`W/"123456789"`), { tag: "123456789", weak: true });
+ * assertEquals(parseETag(`"123456789"`), { tag: "123456789", weak: false });
  * ```
  *
  * @throws {SyntaxError} If the input is invalid [`<entity-tag>`](https://www.rfc-editor.org/rfc/rfc9110#section-8.8.3-2).
  */
-export function parse(input: string): ETag {
+export function parseETag(input: string): ETag {
   input = input.trim();
 
   const result = ReETag.exec(input);
@@ -40,3 +40,8 @@ export function parse(input: string): ETag {
 
   return { weak, tag: result.groups.etagc };
 }
+
+/**
+ * @deprecated Rename to {@link parseETag}.
+ */
+export const parse = parseETag;

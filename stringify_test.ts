@@ -1,4 +1,4 @@
-import { stringify } from "./stringify.ts";
+import { stringifyETag } from "./stringify.ts";
 import {
   assertEquals,
   assertIsError,
@@ -8,7 +8,7 @@ import {
 } from "./_dev_deps.ts";
 import type { ETag } from "./types.ts";
 
-describe("stringify", () => {
+describe("stringifyETag", () => {
   it("should throw error if the etag is invalid", () => {
     const table: ETag[] = [
       { tag: `"`, weak: false },
@@ -18,7 +18,7 @@ describe("stringify", () => {
     ];
 
     table.forEach((etag) => {
-      assertThrows(() => stringify(etag));
+      assertThrows(() => stringifyETag(etag));
     });
   });
 
@@ -31,7 +31,7 @@ describe("stringify", () => {
     ];
 
     table.forEach(([etag, expected]) => {
-      assertEquals(stringify(etag), expected);
+      assertEquals(stringifyETag(etag), expected);
     });
   });
 
@@ -39,7 +39,7 @@ describe("stringify", () => {
     let err;
 
     try {
-      stringify({ tag: "あ", weak: false });
+      stringifyETag({ tag: "あ", weak: false });
     } catch (e) {
       err = e;
     } finally {
