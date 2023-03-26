@@ -19,7 +19,7 @@ Compliant with
 Parses string into [ETag](#etag).
 
 ```ts
-import { parseETag } from "https://deno.land/x/etag_parser@$VERSION/mod.ts";
+import { parseETag } from "https://deno.land/x/etag_parser@$VERSION/parse.ts";
 import { assertEquals } from "https://deno.land/std/testing/asserts.ts";
 
 assertEquals(parseETag(`W/"123456789"`), { tag: "123456789", weak: true });
@@ -32,7 +32,7 @@ Throws `SyntaxError` if the input is invalid
 [`<entity-tag>`](https://www.rfc-editor.org/rfc/rfc9110#section-8.8.3-2).
 
 ```ts
-import { parseETag } from "https://deno.land/x/etag_parser@$VERSION/mod.ts";
+import { parseETag } from "https://deno.land/x/etag_parser@$VERSION/parse.ts";
 import { assertThrows } from "https://deno.land/std/testing/asserts.ts";
 
 assertThrows(() => parseETag("<invalid>"));
@@ -43,7 +43,7 @@ assertThrows(() => parseETag("<invalid>"));
 Serialize [ETag](#etag) into string.
 
 ```ts
-import { stringifyETag } from "https://deno.land/x/etag_parser@$VERSION/mod.ts";
+import { stringifyETag } from "https://deno.land/x/etag_parser@$VERSION/stringify.ts";
 import { assertEquals } from "https://deno.land/std/testing/asserts.ts";
 
 assertEquals(stringifyETag({ weak: true, tag: "123456789" }), `W/"123456789"`);
@@ -55,7 +55,7 @@ assertEquals(stringifyETag({ weak: false, tag: "123456789" }), `"123456789"`);
 Throws `TypeError` if [ETag](#etag) contains invalid value.
 
 ```ts
-import { stringifyETag } from "https://deno.land/x/etag_parser@$VERSION/mod.ts";
+import { stringifyETag } from "https://deno.land/x/etag_parser@$VERSION/stringify.ts";
 import { assertThrows } from "https://deno.land/std/testing/asserts.ts";
 
 assertThrows(() => stringifyETag({ tag: "aあ亜", weak: true }));

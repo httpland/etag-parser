@@ -10,7 +10,7 @@ import type { ETag, ETagFormat } from "./types.ts";
  *
  * @example
  * ```ts
- * import { stringifyETag } from "https://deno.land/x/etag_parser@$VERSION/mod.ts";
+ * import { stringifyETag } from "https://deno.land/x/etag_parser@$VERSION/stringify.ts";
  * import { assertEquals } from "https://deno.land/std/testing/asserts.ts";
  *
  * assertEquals(stringifyETag({ weak: true, tag: "123456789" }), `W/"123456789"`);

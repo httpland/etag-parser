@@ -16,7 +16,7 @@ const ReETag = /^(?<weak>W\/)?"(?<etagc>[\x21\x23-\x7E\x80-\xFF]*)"$/;
  *
  * @example
  * ```ts
- * import { parseETag } from "https://deno.land/x/etag_parser@$VERSION/mod.ts";
+ * import { parseETag } from "https://deno.land/x/etag_parser@$VERSION/parse.ts";
  * import { assertEquals } from "https://deno.land/std/testing/asserts.ts";
  *
  * assertEquals(parseETag(`W/"123456789"`), { tag: "123456789", weak: true });
