@@ -1,5 +1,11 @@
 import { stringify } from "./stringify.ts";
-import { assertEquals, assertThrows, describe, it } from "./_dev_deps.ts";
+import {
+  assertEquals,
+  assertIsError,
+  assertThrows,
+  describe,
+  it,
+} from "./_dev_deps.ts";
 import type { ETag } from "./types.ts";
 
 describe("stringify", () => {
@@ -27,5 +33,17 @@ describe("stringify", () => {
     table.forEach(([etag, expected]) => {
       assertEquals(stringify(etag), expected);
     });
+  });
+
+  it("should be error message", () => {
+    let err;
+
+    try {
+      stringify({ tag: "あ", weak: false });
+    } catch (e) {
+      err = e;
+    } finally {
+      assertIsError(err, TypeError, `invalid <etagc> syntax. "あ"`);
+    }
   });
 });

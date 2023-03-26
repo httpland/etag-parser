@@ -2,6 +2,8 @@
 // This module is browser compatible.
 
 import { isString } from "./deps.ts";
+import { Msg } from "./constants.ts";
+import { quoted, sentence } from "./utils.ts";
 import type { ETag } from "./types.ts";
 
 /**
@@ -29,7 +31,9 @@ export function parse(input: string): ETag {
   const result = ReETag.exec(input);
 
   if (!result || !result.groups || !isString(result.groups.etagc)) {
-    throw SyntaxError("invalid <entity-tag> format.");
+    const message = sentence(Msg.InvalidETag, quoted(input));
+
+    throw SyntaxError(message);
   }
 
   const weak = !!result.groups.weak;

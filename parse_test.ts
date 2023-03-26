@@ -1,5 +1,11 @@
 import { parse } from "./parse.ts";
-import { assertEquals, assertThrows, describe, it } from "./_dev_deps.ts";
+import {
+  assertEquals,
+  assertIsError,
+  assertThrows,
+  describe,
+  it,
+} from "./_dev_deps.ts";
 import type { ETag } from "./types.ts";
 
 describe("parse", () => {
@@ -34,5 +40,16 @@ describe("parse", () => {
     table.forEach((input) => {
       assertThrows(() => parse(input));
     });
+  });
+
+  it("should be error message", () => {
+    let err;
+    try {
+      parse("あ");
+    } catch (e) {
+      err = e;
+    } finally {
+      assertIsError(err, SyntaxError, `invalid <entity-tag> syntax. "あ"`);
+    }
   });
 });

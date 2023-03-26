@@ -1,8 +1,9 @@
 // Copyright 2023-latest the httpland authors. All rights reserved. MIT license.
 // This module is browser compatible.
 
-import { quoted, weakPrefix } from "./utils.ts";
+import { quoted, sentence, weakPrefix } from "./utils.ts";
 import { assertEtagcFormat } from "./validate.ts";
+import { Msg } from "./constants.ts";
 import type { ETag, ETagFormat } from "./types.ts";
 
 /** Serialize {@link ETag} into string.
@@ -19,14 +20,13 @@ import type { ETag, ETagFormat } from "./types.ts";
  * @throws {TypeError} If the {@link ETag.tag} is not [`<etagc>`](https://www.rfc-editor.org/rfc/rfc9110#field.etag) format.
  */
 export function stringify(etag: ETag): ETagFormat {
-  assertEtagcFormat(etag.tag, Msg.InvalidEtagc);
+  const { tag, weak } = etag;
+  const message = sentence(Msg.InvalidEtagc, quoted(tag));
 
-  const opaqueTag = quoted(etag.tag);
-  const etagFormat = etag.weak ? weakPrefix(opaqueTag) : opaqueTag;
+  assertEtagcFormat(tag, message);
+
+  const opaqueTag = quoted(tag);
+  const etagFormat = weak ? weakPrefix(opaqueTag) : opaqueTag;
 
   return etagFormat;
-}
-
-const enum Msg {
-  InvalidEtagc = "tag is not <etagc> format.",
 }
