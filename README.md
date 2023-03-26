@@ -72,6 +72,8 @@ ETag is a structured object for `ETag` header.
 
 ## Utilities
 
+Utility functions are provided.
+
 ### compareWeak
 
 Weak comparison. Two `ETag` are equivalent if `ETag.tag` match
