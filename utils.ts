@@ -10,3 +10,8 @@ export function quoted<T extends string>(input: T): `"${T}"` {
 export function weakPrefix<T extends string>(input: T): `W/${T}` {
   return `W/${input}`;
 }
+
+/** Create new sentence. */
+export function sentence(...sentences: readonly string[]): string {
+  return sentences.join(" ");
+}

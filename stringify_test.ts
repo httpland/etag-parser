@@ -1,8 +1,14 @@
-import { stringify } from "./stringify.ts";
-import { assertEquals, assertThrows, describe, it } from "./_dev_deps.ts";
+import { stringifyETag } from "./stringify.ts";
+import {
+  assertEquals,
+  assertIsError,
+  assertThrows,
+  describe,
+  it,
+} from "./_dev_deps.ts";
 import type { ETag } from "./types.ts";
 
-describe("stringify", () => {
+describe("stringifyETag", () => {
   it("should throw error if the etag is invalid", () => {
     const table: ETag[] = [
       { tag: `"`, weak: false },
@@ -12,7 +18,7 @@ describe("stringify", () => {
     ];
 
     table.forEach((etag) => {
-      assertThrows(() => stringify(etag));
+      assertThrows(() => stringifyETag(etag));
     });
   });
 
@@ -25,7 +31,19 @@ describe("stringify", () => {
     ];
 
     table.forEach(([etag, expected]) => {
-      assertEquals(stringify(etag), expected);
+      assertEquals(stringifyETag(etag), expected);
     });
+  });
+
+  it("should be error message", () => {
+    let err;
+
+    try {
+      stringifyETag({ tag: "あ", weak: false });
+    } catch (e) {
+      err = e;
+    } finally {
+      assertIsError(err, TypeError, `invalid <etagc> syntax. "あ"`);
+    }
   });
 });

@@ -19,11 +19,11 @@ Compliant with
 Parses string into [ETag](#etag).
 
 ```ts
-import { parse } from "https://deno.land/x/etag_parser@$VERSION/mod.ts";
+import { parseETag } from "https://deno.land/x/etag_parser@$VERSION/parse.ts";
 import { assertEquals } from "https://deno.land/std/testing/asserts.ts";
 
-assertEquals(parse(`W/"123456789"`), { tag: "123456789", weak: true });
-assertEquals(parse(`"123456789"`), { tag: "123456789", weak: false });
+assertEquals(parseETag(`W/"123456789"`), { tag: "123456789", weak: true });
+assertEquals(parseETag(`"123456789"`), { tag: "123456789", weak: false });
 ```
 
 ### Throwing error
@@ -32,10 +32,10 @@ Throws `SyntaxError` if the input is invalid
 [`<entity-tag>`](https://www.rfc-editor.org/rfc/rfc9110#section-8.8.3-2).
 
 ```ts
-import { parse } from "https://deno.land/x/etag_parser@$VERSION/mod.ts";
+import { parseETag } from "https://deno.land/x/etag_parser@$VERSION/parse.ts";
 import { assertThrows } from "https://deno.land/std/testing/asserts.ts";
 
-assertThrows(() => parse("<invalid>"));
+assertThrows(() => parseETag("<invalid>"));
 ```
 
 ## Serialization
@@ -43,11 +43,11 @@ assertThrows(() => parse("<invalid>"));
 Serialize [ETag](#etag) into string.
 
 ```ts
-import { stringify } from "https://deno.land/x/etag_parser@$VERSION/mod.ts";
+import { stringifyETag } from "https://deno.land/x/etag_parser@$VERSION/stringify.ts";
 import { assertEquals } from "https://deno.land/std/testing/asserts.ts";
 
-assertEquals(stringify({ weak: true, tag: "123456789" }), `W/"123456789"`);
-assertEquals(stringify({ weak: false, tag: "123456789" }), `"123456789"`);
+assertEquals(stringifyETag({ weak: true, tag: "123456789" }), `W/"123456789"`);
+assertEquals(stringifyETag({ weak: false, tag: "123456789" }), `"123456789"`);
 ```
 
 ### Throwing error
@@ -55,10 +55,10 @@ assertEquals(stringify({ weak: false, tag: "123456789" }), `"123456789"`);
 Throws `TypeError` if [ETag](#etag) contains invalid value.
 
 ```ts
-import { stringify } from "https://deno.land/x/etag_parser@$VERSION/mod.ts";
+import { stringifyETag } from "https://deno.land/x/etag_parser@$VERSION/stringify.ts";
 import { assertThrows } from "https://deno.land/std/testing/asserts.ts";
 
-assertThrows(() => stringify({ tag: "aあ亜", weak: true }));
+assertThrows(() => stringifyETag({ tag: "aあ亜", weak: true }));
 ```
 
 ## ETag
@@ -69,6 +69,75 @@ ETag is a structured object for `ETag` header.
 | ---- | --------- | ------------------------------------------------------------------------------------------- |
 | tag  | `string`  | Representation of [`<etagc>`](https://www.rfc-editor.org/rfc/rfc9110.html#section-8.8.3-2). |
 | weak | `boolean` | Whether this is weak validator or not.                                                      |
+
+## Utilities
+
+Utility functions are provided.
+
+### compareWeak
+
+Weak comparison. Two `ETag` are equivalent if `ETag.tag` match
+character-by-character, regardless of either or both being tagged as
+`ETag.weak`.
+
+Compliant with
+[RFC 9110, 8.8.3.2. Comparison](https://www.rfc-editor.org/rfc/rfc9110.html#name-comparison-2).
+
+```ts
+import { compareWeak } from "https://deno.land/x/etag_parser@$VERSION/validate.ts";
+import { assert } from "https://deno.land/std/testing/asserts.ts";
+
+assert(
+  compareWeak(
+    { weak: true, tag: "123456789" },
+    { weak: false, tag: "123456789" },
+  ),
+);
+```
+
+### compareStrong
+
+Strong comparison. Two `ETag` are equivalent if both are `StrongETag` and
+`ETag.tag` match character-by-character.
+
+Compliant with
+[RFC 9110, 8.8.3.2. Comparison](https://www.rfc-editor.org/rfc/rfc9110.html#name-comparison-2).
+
+```ts
+import { compareWeak } from "https://deno.land/x/etag_parser@$VERSION/validate.ts";
+import { assert } from "https://deno.land/std/testing/asserts.ts";
+
+assert(
+  compareWeak(
+    { weak: false, tag: "123456789" },
+    { weak: false, tag: "123456789" },
+  ),
+);
+```
+
+### isWeakETag
+
+Whether the `ETag` is `WeakETag` or not.
+
+```ts
+import { isWeakETag } from "https://deno.land/x/etag_parser@$VERSION/validate.ts";
+import { assert, assertFalse } from "https://deno.land/std/testing/asserts.ts";
+
+assert(isWeakETag({ weak: true, tag: "123456789" }));
+assertFalse(isWeakETag({ weak: false, tag: "123456789" }));
+```
+
+### isStrongETag
+
+Whether the `ETag` is `StrongETag` or not.
+
+```ts
+import { isStrongETag } from "https://deno.land/x/etag_parser@$VERSION/validate.ts";
+import { assert, assertFalse } from "https://deno.land/std/testing/asserts.ts";
+
+assert(isStrongETag({ weak: false, tag: "123456789" }));
+assertFalse(isStrongETag({ weak: true, tag: "123456789" }));
+```
 
 ## API
 

@@ -1,4 +1,7 @@
 // Copyright 2023-latest the httpland authors. All rights reserved. MIT license.
 // This module is browser compatible.
 
-export { isString } from "https://deno.land/x/isx@1.0.0/is_string.ts";
+export const enum Msg {
+  InvalidEtagc = "invalid <etagc> syntax.",
+  InvalidETag = "invalid <entity-tag> syntax.",
+}
